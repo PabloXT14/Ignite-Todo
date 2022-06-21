@@ -23,9 +23,18 @@
     font-family: 'Inter', sans-serif;
 }
 
+:focus {
+    outline: transparent;
+    box-shadow: 0 0 0 2px var(--purple-900);
+}
+
 body {
     background: var(--gray-600);
     color: var(--gray-100);
+}
+
+button {
+    cursor: pointer;
 }
 
 @media (max-width: 1080px) {
