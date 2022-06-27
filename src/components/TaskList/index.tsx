@@ -1,10 +1,25 @@
 import { PlusCircle } from 'phosphor-react';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Clipboard from '../../assets/Clipboard.svg';
+import { Task } from '../Task';
 
 import styles from './styles.module.css';
 
+interface Task {
+    id: string;
+    content: string;
+    done: boolean;
+}
+
 export function TaskList() {
+    const [tasks, setTasks] = useState<Task[]>([
+        {id: uuidv4(), content: 'Item 1', done: false},
+        {id: uuidv4(), content: 'Item 2', done: false},
+        {id: uuidv4(), content: 'Item 3', done: false},
+        {id: uuidv4(), content: 'Item 4', done: false},
+    ]);
+
 
     function handleCreateNewTask(event: FormEvent) {
         event.preventDefault();
@@ -30,15 +45,19 @@ export function TaskList() {
                     </div>
                 </div>
 
-                <div className={styles.warningContainer}>
-                    <img src={Clipboard} alt="Imagem de caderneta" />
-                    <strong>Você ainda não tem tarefas cadastradas</strong>
-                    <span>Crie tarefas e organize seus itens a fazer</span>
-                </div>
-
-                <div className={styles.listTasks}>
-
-                </div>
+                {(tasks.length <= 0) ? (
+                    <div className={styles.warningContainer}>
+                        <img src={Clipboard} alt="Imagem de caderneta" />
+                        <strong>Você ainda não tem tarefas cadastradas</strong>
+                        <span>Crie tarefas e organize seus itens a fazer</span>
+                    </div>
+                ) : (
+                    <div className={styles.listTasks}>
+                        {tasks.map(task => (
+                            <Task key={task.id}/>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     )
