@@ -7,6 +7,7 @@
     border: 1px solid var(--gray-400);
     border-radius: 8px;
     padding: 1rem;
+    line-height: 1.4;
 }
 
 .container + .container {
@@ -17,17 +18,53 @@
     flex: 1;
     font-size: 0.875rem;
     font-weight: 400;
-    line-height: 1.4;
 
     color: var(--gray-100);
-    /* background: blue; */
 }
 
-.container input[type="checkbox"] {
-    /* visibility: hidden; */
+.container .checkboxContainer {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+}
+
+.container .checkboxContainer input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.container .checkboxContainer input + label::before {
+    content: '';
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: 2px solid var(--blue-500);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.container .checkboxContainer:hover input + label::before {
+    background: var(--blue-900);
+}
+
+.container .checkboxContainer input:checked + label::before {
+    content: '✔';
+    background: var(--purple-900);
+    border-color: var(--purple-900);
+}
+
+.container .checkboxContainer:hover input:checked + label::before {
+    background: var(--purple-500);
+    border-color: var(--purple-500);
 }
 
 .container svg { 
-    padding: 0.3rem;
     color: var(--gray-300);
 }
