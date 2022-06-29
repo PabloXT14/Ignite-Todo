@@ -22,6 +22,14 @@
     color: var(--gray-100);
 }
 
+.contentWithline {
+    flex: 1;
+    font-size: 0.875rem;
+    font-weight: 400;
+    text-decoration-line: line-through;
+    color: var(--gray-300);
+}
+
 .container .checkboxContainer {
     position: relative;
     width: 1rem;
@@ -55,16 +63,33 @@
 }
 
 .container .checkboxContainer input:checked + label::before {
-    content: '✔';
-    background: var(--purple-900);
+    content: '';
+    background: var(--purple-900) url("../../assets/icon-check.svg") no-repeat center 58% / 0.8rem;
     border-color: var(--purple-900);
 }
 
 .container .checkboxContainer:hover input:checked + label::before {
-    background: var(--purple-500);
+    background-color: var(--purple-500);
     border-color: var(--purple-500);
 }
 
-.container svg { 
+.container .deleteButton { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
     color: var(--gray-300);
+    background: transparent;
+    border: 0;
+    border-radius: 4px;
+
+    cursor: pointer;
+
+    transition: color .2s ease, background .2s ease;
+}
+
+.container .deleteButton:hover {
+    background: var(--gray-400);
+    color: var(--danger-500);
 }

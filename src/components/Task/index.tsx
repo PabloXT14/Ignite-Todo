@@ -1,20 +1,35 @@
 import { Trash } from 'phosphor-react';
-import styles from './styles.module.css';
-import { v4 as uuidv4 } from 'uuid';
+import { Task } from '../TaskList';
 
-export function Task() {
-    const tempId = uuidv4();
+import styles from './styles.module.css';
+
+interface TaskProps extends Task {
+    onHandleTaskDone: (id: string) => void;
+    onHandleDeleteTask: (id: string) => void;
+}
+
+export function TaskItem(props: TaskProps) {
 
     return (
         <div className={styles.container}>
             <div className={styles.checkboxContainer}>
-                <input type="checkbox" id={tempId} />
-                <label htmlFor={tempId}></label>
+                <input 
+                    type="checkbox" 
+                    id={props.id} 
+                    onClick={() => props.onHandleTaskDone(props.id)}
+                />
+                <label htmlFor={props.id}></label>
             </div>
-            <p className={styles.content}>
-                Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
+            <p className={props.done ? styles.contentWithline : styles.content}>
+                {props.content}
             </p>
-            <Trash size={20}/>
+            <button 
+                type='button' 
+                className={styles.deleteButton}
+                onClick={() => props.onHandleDeleteTask(props.id)}
+            >
+                <Trash size={17}/>
+            </button>
         </div>
     );
 }
