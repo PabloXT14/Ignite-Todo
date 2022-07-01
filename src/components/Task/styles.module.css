@@ -8,6 +8,7 @@
     border-radius: 8px;
     padding: 1rem;
     line-height: 1.4;
+    cursor: move;
 }
 
 .container + .container {
@@ -93,3 +94,11 @@
     background: var(--gray-400);
     color: var(--danger-500);
 }
+
+/* ===== DRAGGABLE STYLING ===== */
+
+.dragging {
+    opacity: 0.5;
+    border: 1px dashed var(--purple-500);
+}
+

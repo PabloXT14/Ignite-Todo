@@ -1,4 +1,5 @@
 import { Trash } from 'phosphor-react';
+import { useRef, useState } from 'react';
 import { Task } from '../TaskList';
 
 import styles from './styles.module.css';
@@ -9,9 +10,25 @@ interface TaskProps extends Task {
 }
 
 export function TaskItem(props: TaskProps) {
+    const draggable = useRef<HTMLDivElement>(null);
+    const [isDragging, setIsDragging] = useState(false); 
+
+    draggable.current?.addEventListener('dragstart', () => {
+        // draggable.current?.classList.add('.dragging');
+        setIsDragging(true);
+    });
+
+    draggable.current?.addEventListener('dragend', () => {
+        // draggable.current?.classList.remove('dragging');
+        setIsDragging(false);
+    });
 
     return (
-        <div className={styles.container}>
+        <div 
+            className={isDragging ? `${styles.container} ${styles.dragging}` : styles.container} 
+            draggable={true} 
+            ref={draggable}
+        >
             <div className={styles.checkboxContainer}>
                 <input 
                     type="checkbox" 
