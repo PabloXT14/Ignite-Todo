@@ -1,33 +1,64 @@
 import { Trash } from 'phosphor-react';
-import { useRef, useState } from 'react';
 import { Task } from '../TaskList';
+import { useDrag, useDrop } from 'react-dnd';
 
 import styles from './styles.module.css';
+import { useContext, useRef } from 'react';
+import { TaskContext } from '../../Contexts/taskContext';
 
 interface TaskProps extends Task {
     onHandleTaskDone: (id: string) => void;
     onHandleDeleteTask: (id: string) => void;
+    index: number;
 }
 
 export function TaskItem(props: TaskProps) {
-    const draggable = useRef<HTMLDivElement>(null);
-    const [isDragging, setIsDragging] = useState(false); 
+    const { moveTask } = useContext(TaskContext);
+    const ref = useRef<HTMLLIElement>(null);
 
-    draggable.current?.addEventListener('dragstart', () => {
-        // draggable.current?.classList.add('.dragging');
-        setIsDragging(true);
-    });
 
-    draggable.current?.addEventListener('dragend', () => {
-        // draggable.current?.classList.remove('dragging');
-        setIsDragging(false);
-    });
+    const [{ isDragging }, dragRef] = useDrag(() => ({
+        type: 'CARD',
+        item: { id: props.id },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging()
+        })
+    }));
+
+
+    const [, dropRef] = useDrop(() => ({
+        accept: 'CARD',
+        hover(item: TaskProps, monitor) {
+            // console.log(item.id); // ITEM ARRASTADO
+            // console.log(props.id); // ITEM QUE SOFRE O HOVER EM CIMA
+
+            const draggedIndex = item.index;
+            const targetIndex = props.index;
+
+            if (draggedIndex == targetIndex) { return };
+
+            const targetSize = ref.current!.getBoundingClientRect();
+            const targetCenter = (targetSize.bottom - targetSize.top) / 2;
+
+            const draggedOffset = monitor.getClientOffset();
+            const draggedTop = draggedOffset!.y - targetSize.top;
+
+
+            if (draggedIndex < targetIndex && draggedTop < targetCenter) { return }
+
+            if (draggedIndex > targetIndex && draggedTop > targetCenter ) { return }
+
+            moveTask(draggedIndex, targetIndex);
+        }
+    }));
+
+    dragRef(dropRef(ref));
+
 
     return (
-        <div 
-            className={isDragging ? `${styles.container} ${styles.dragging}` : styles.container} 
-            draggable={true} 
-            ref={draggable}
+        <li 
+            className={isDragging ? styles.container+' '+styles.isDragging : styles.container}
+            ref={ref}
         >
             <div className={styles.checkboxContainer}>
                 <input 
@@ -47,6 +78,6 @@ export function TaskItem(props: TaskProps) {
             >
                 <Trash size={17}/>
             </button>
-        </div>
+        </li>
     );
 }

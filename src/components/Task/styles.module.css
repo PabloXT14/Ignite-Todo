@@ -8,7 +8,7 @@
     border-radius: 8px;
     padding: 1rem;
     line-height: 1.4;
-    cursor: move;
+    cursor: grab;
 }
 
 .container + .container {
@@ -97,8 +97,18 @@
 
 /* ===== DRAGGABLE STYLING ===== */
 
-.dragging {
-    opacity: 0.5;
-    border: 1px dashed var(--purple-500);
+.isDragging {
+    border: 2px dashed var(--purple-500);
+    /* border-radius: 0; */
+    background: transparent;
+    box-shadow: none;
+
+    cursor: grabbing;
 }
+
+.isDragging div, 
+.isDragging p,
+.isDragging button {
+    opacity: 0;
+}  
 

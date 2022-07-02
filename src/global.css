@@ -46,6 +46,10 @@ body::-webkit-scrollbar-thumb {
     background: var(--gray-400);
 }
 
+body ul {
+    list-style: none;
+}
+
 button {
     cursor: pointer;
 }

@@ -1,9 +1,9 @@
 import { PlusCircle } from 'phosphor-react';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Clipboard from '../../assets/Clipboard.svg';
 import { TaskItem } from '../Task';
 
+import Clipboard from '../../assets/Clipboard.svg';
 import styles from './styles.module.css';
 
 export interface Task {
@@ -60,7 +60,6 @@ export function TaskList() {
         setTasks(tasksUpdated);
     }
 
-
     return (
         <div className={styles.container}>
             <form onSubmit={handleCreateNewTask} className={styles.form}>
@@ -99,8 +98,8 @@ export function TaskList() {
                         <span>Crie tarefas e organize seus itens a fazer</span>
                     </div>
                 ) : (
-                    <div className={styles.listTasks}>
-                        {tasks.map(task => (
+                    <ul className={styles.listTasks}>
+                        {tasks.map((task, index) => (
                             <TaskItem
                                 key={task.id}
                                 id={task.id}
@@ -108,9 +107,10 @@ export function TaskList() {
                                 done={task.done}
                                 onHandleTaskDone={handleTaskDone}
                                 onHandleDeleteTask={handleDeleteTask}
+                                index={index}
                             />
                         ))}
-                    </div>
+                    </ul>
                 )}
             </div>
         </div>
