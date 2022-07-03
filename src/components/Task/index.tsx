@@ -1,10 +1,9 @@
+import { useRef } from 'react';
+import { Task, useTask } from '../../Contexts/taskContext';
 import { Trash } from 'phosphor-react';
-import { Task } from '../TaskList';
 import { useDrag, useDrop } from 'react-dnd';
 
 import styles from './styles.module.css';
-import { useContext, useRef } from 'react';
-import { TaskContext } from '../../Contexts/taskContext';
 
 interface TaskProps extends Task {
     onHandleTaskDone: (id: string) => void;
@@ -13,13 +12,13 @@ interface TaskProps extends Task {
 }
 
 export function TaskItem(props: TaskProps) {
-    const { moveTask } = useContext(TaskContext);
+    const { moveTask } = useTask();
     const ref = useRef<HTMLLIElement>(null);
 
 
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: 'CARD',
-        item: { id: props.id },
+        item: { index: props.index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging()
         })
@@ -49,9 +48,12 @@ export function TaskItem(props: TaskProps) {
             if (draggedIndex > targetIndex && draggedTop > targetCenter ) { return }
 
             moveTask(draggedIndex, targetIndex);
+
+            // item.index = targetIndex;// mudando index depois de movido
         }
     }));
 
+    // passando uma referencia dentro da outra
     dragRef(dropRef(ref));
 
 

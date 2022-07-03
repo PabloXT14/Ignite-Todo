@@ -1,23 +1,19 @@
-import { PlusCircle } from 'phosphor-react';
+import { Task, useTask } from '../../Contexts/taskContext';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { PlusCircle } from 'phosphor-react';
 import { v4 as uuidv4 } from 'uuid';
 import { TaskItem } from '../Task';
 
 import Clipboard from '../../assets/Clipboard.svg';
 import styles from './styles.module.css';
 
-export interface Task {
-    id: string;
-    content: string;
-    done: boolean;
-}
 
 export function TaskList() {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const { tasksList, setTasksList } = useTask();
     const [newTaskText, setNewTaskText] = useState('');
 
-    const totalTasks = tasks.length;
-    const tasksFinished = tasks.reduce((acc, task) => {
+    const totalTasks = tasksList.length;
+    const tasksFinished = tasksList.reduce((acc, task) => {
         if(task.done) {
             acc += 1;
         }
@@ -34,7 +30,7 @@ export function TaskList() {
             done: false
         }
 
-        setTasks([...tasks, newTask]);
+        setTasksList([...tasksList, newTask]);
         setNewTaskText('');
 
     }
@@ -44,20 +40,20 @@ export function TaskList() {
     }
 
     function handleTaskDone(id: string) {
-        const tasksUpdated = tasks.filter(task => {
+        const tasksUpdated = tasksList.filter(task => {
             if(task.id === id) {
                 task.done = !task.done;
             }
             return task
         });
 
-        setTasks(tasksUpdated);
+        setTasksList(tasksUpdated);
     }
 
     function handleDeleteTask(id: string) {
-        const tasksUpdated = tasks.filter(task => task.id !== id);
+        const tasksUpdated = tasksList.filter(task => task.id !== id);
 
-        setTasks(tasksUpdated);
+        setTasksList(tasksUpdated);
     }
 
     return (
@@ -91,7 +87,7 @@ export function TaskList() {
                     </div>
                 </div>
 
-                {(tasks.length <= 0) ? (
+                {(tasksList.length <= 0) ? (
                     <div className={styles.warningContainer}>
                         <img src={Clipboard} alt="Imagem de caderneta" />
                         <strong>Você ainda não tem tarefas cadastradas</strong>
@@ -99,7 +95,7 @@ export function TaskList() {
                     </div>
                 ) : (
                     <ul className={styles.listTasks}>
-                        {tasks.map((task, index) => (
+                        {tasksList.map((task, index) => (
                             <TaskItem
                                 key={task.id}
                                 id={task.id}
