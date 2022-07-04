@@ -8,17 +8,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "immer": "^9.0.15",
     "phosphor-react": "^1.4.1",
     "react": "^18.0.0",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^18.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/css-modules": "^1.0.2",
     "@types/react": "^18.0.0",
+    "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-dnd": "^3.0.2",
     "@types/react-dnd-html5-backend": "^3.0.2",
     "@types/react-dom": "^18.0.0",

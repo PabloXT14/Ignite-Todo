@@ -1,7 +1,6 @@
-import { useRef } from 'react';
-import { Task, useTask } from '../../Contexts/taskContext';
+import { DraggableProvided } from 'react-beautiful-dnd';
+import { Task } from '../../Contexts/taskContext';
 import { Trash } from 'phosphor-react';
-import { useDrag, useDrop } from 'react-dnd';
 
 import styles from './styles.module.css';
 
@@ -9,58 +8,19 @@ interface TaskProps extends Task {
     onHandleTaskDone: (id: string) => void;
     onHandleDeleteTask: (id: string) => void;
     index: number;
+    // LOGICA DO DRAG AND DROP
+    innerRef: any;
+    provided: DraggableProvided;
 }
 
 export function TaskItem(props: TaskProps) {
-    const { moveTask } = useTask();
-    const ref = useRef<HTMLLIElement>(null);
-
-
-    const [{ isDragging }, dragRef] = useDrag(() => ({
-        type: 'CARD',
-        item: { index: props.index },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging()
-        })
-    }));
-
-
-    const [, dropRef] = useDrop(() => ({
-        accept: 'CARD',
-        hover(item: TaskProps, monitor) {
-            // console.log(item.id); // ITEM ARRASTADO
-            // console.log(props.id); // ITEM QUE SOFRE O HOVER EM CIMA
-
-            const draggedIndex = item.index;
-            const targetIndex = props.index;
-
-            if (draggedIndex == targetIndex) { return };
-
-            const targetSize = ref.current!.getBoundingClientRect();
-            const targetCenter = (targetSize.bottom - targetSize.top) / 2;
-
-            const draggedOffset = monitor.getClientOffset();
-            const draggedTop = draggedOffset!.y - targetSize.top;
-
-
-            if (draggedIndex < targetIndex && draggedTop < targetCenter) { return }
-
-            if (draggedIndex > targetIndex && draggedTop > targetCenter ) { return }
-
-            moveTask(draggedIndex, targetIndex);
-
-            // item.index = targetIndex;// mudando index depois de movido
-        }
-    }));
-
-    // passando uma referencia dentro da outra
-    dragRef(dropRef(ref));
-
 
     return (
         <li 
-            className={isDragging ? styles.container+' '+styles.isDragging : styles.container}
-            ref={ref}
+            ref={props.innerRef}
+            {...props.provided.draggableProps}
+            {...props.provided.dragHandleProps}
+            className={styles.container}
         >
             <div className={styles.checkboxContainer}>
                 <input 

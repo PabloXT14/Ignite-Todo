@@ -1,5 +1,6 @@
 import { Task, useTask } from '../../Contexts/taskContext';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { PlusCircle } from 'phosphor-react';
 import { v4 as uuidv4 } from 'uuid';
 import { TaskItem } from '../Task';
@@ -56,6 +57,16 @@ export function TaskList() {
         setTasksList(tasksUpdated);
     }
 
+    function handleOnDragEnd(result: DropResult) {
+        if (!result.destination) return;
+
+        const items = Array.from(tasksList);// copia do nosso array de items
+        const [reorderedItem] = items.splice(result.source.index, 1);// pegando item selecionado
+        items.splice(result.destination.index, 0, reorderedItem);// reposicionando item
+
+        setTasksList(items);
+    }
+
     return (
         <div className={styles.container}>
             <form onSubmit={handleCreateNewTask} className={styles.form}>
@@ -94,19 +105,39 @@ export function TaskList() {
                         <span>Crie tarefas e organize seus itens a fazer</span>
                     </div>
                 ) : (
-                    <ul className={styles.listTasks}>
-                        {tasksList.map((task, index) => (
-                            <TaskItem
-                                key={task.id}
-                                id={task.id}
-                                content={task.content}
-                                done={task.done}
-                                onHandleTaskDone={handleTaskDone}
-                                onHandleDeleteTask={handleDeleteTask}
-                                index={index}
-                            />
-                        ))}
-                    </ul>
+                    <DragDropContext onDragEnd={handleOnDragEnd}>
+                        <Droppable droppableId='TaskListDropabla'>
+                            {(provided) => (
+                                <ul 
+                                    {...provided.droppableProps} 
+                                    ref={provided.innerRef}
+                                    className={styles.listTasks} 
+                                >
+                                    {tasksList.map((task, index) => (
+                                        <Draggable 
+                                            key={task.id} 
+                                            draggableId={task.id} 
+                                            index={index}
+                                        >
+                                            {(provided) => (
+                                                <TaskItem
+                                                    innerRef={provided.innerRef}
+                                                    provided={provided}
+                                                    id={task.id}
+                                                    content={task.content}
+                                                    done={task.done}
+                                                    onHandleTaskDone={handleTaskDone}
+                                                    onHandleDeleteTask={handleDeleteTask}
+                                                    index={index}
+                                                />
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
                 )}
             </div>
         </div>
