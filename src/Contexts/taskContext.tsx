@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export interface Task {
     id: string;
@@ -9,7 +9,6 @@ export interface Task {
 interface TaskContextData {
     tasksList: Task[],
     setTasksList: (tasksList: Task[]) => void;
-    moveTask: (from: number, to: number) => void;
 }
 
 interface TaskProviderProps {
@@ -22,15 +21,19 @@ const TaskContext = createContext<TaskContextData>({} as TaskContextData);
 function TaskProvider({ children }: TaskProviderProps) {
     const [tasksList, setTasksList] = useState<Task[]>([]);
 
-    function moveTask(from: number, to: number) {
-        
-    }
+    useEffect(() => {
+        const initialList: Task[] = JSON.parse(localStorage.getItem('@IGNITE-TODO')!);
+        setTasksList(initialList);
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('@IGNITE-TODO', JSON.stringify(tasksList));
+    }, [tasksList]);
 
     return (
         <TaskContext.Provider value={{
             tasksList,
-            setTasksList,
-            moveTask,
+            setTasksList
         }}>
             {children}
         </TaskContext.Provider>

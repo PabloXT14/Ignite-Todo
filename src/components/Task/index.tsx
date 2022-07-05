@@ -21,12 +21,16 @@ export function TaskItem(props: TaskProps) {
             {...props.provided.draggableProps}
             {...props.provided.dragHandleProps}
             className={styles.container}
+            style={{
+                ...props.provided.draggableProps.style
+            }}
         >
             <div className={styles.checkboxContainer}>
                 <input 
                     type="checkbox" 
                     id={props.id} 
                     onClick={() => props.onHandleTaskDone(props.id)}
+                    checked={props.done}
                 />
                 <label htmlFor={props.id}></label>
             </div>

@@ -106,7 +106,7 @@ export function TaskList() {
                     </div>
                 ) : (
                     <DragDropContext onDragEnd={handleOnDragEnd}>
-                        <Droppable droppableId='TaskListDropabla'>
+                        <Droppable droppableId='TaskListDropable'>
                             {(provided) => (
                                 <ul 
                                     {...provided.droppableProps} 
