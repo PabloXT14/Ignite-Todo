@@ -58,7 +58,7 @@ O Ignite todo é um projeto para organizar suas tarefas do dia, permitindo a cri
 
 ## 🎨 Layout
 
-- [Canal Enthony](https://www.youtube.com/channel/UCNPvNQl3i3LOB2pFSvJ2XKQ/featured)
+- [Link no Figma](https://www.figma.com/file/i5BCUSBPRE4zXZEG2BzING/ToDo-List-(Copy)?node-id=0%3A1)
 
 
 ## 📋 Clipboard (Pré-requisitos)
