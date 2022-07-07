@@ -31,7 +31,7 @@ export function TaskList() {
             done: false
         }
 
-        setTasksList([...tasksList, newTask]);
+        setTasksList([newTask, ...tasksList]);
         setNewTaskText('');
 
     }
