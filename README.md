@@ -31,60 +31,64 @@ O Ignite todo é um projeto para organizar suas tarefas do dia, permitindo a cri
 
 
 ## 💻 Deploy
-- Clique no link a seguir para executar o projeto na sua máquina: <a target="_blank" href="https://ignite-todo-two.vercel.app/">Link</a>
+
+Clique no link a seguir para executar o projeto na sua máquina: <a target="_blank" href="https://ignite-todo-two.vercel.app/">Link</a>
 
 
 ## 🚀 Technologies
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
 ✔ [Vite](https://vitejs.dev/)
 <br/>
-
 ✔ [ReactJS](https://reactjs.org/)
 <br/>
-
 ✔ [TypeScript](https://www.typescriptlang.org/)
 <br/>
-
 ✔ [CSS-Modules](https://github.com/css-modules/css-modules)
 <br/>
-
 ✔ [Phosphor Icons](https://phosphoricons.com/)
 <br/>
-
 ✔ [uuid](https://www.npmjs.com/package/uuid)
 <br/>
-
 ✔ [React-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
 
 
 ## 🎨 Layout
 
-- [Link no Figma](https://www.figma.com/file/i5BCUSBPRE4zXZEG2BzING/ToDo-List-(Copy)?node-id=0%3A1)
+Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/i5BCUSBPRE4zXZEG2BzING/ToDo-List-(Copy)?node-id=0%3A1). É necessário ter conta no [Figma](https://www.figma.com/) para acessá-lo.
 
 
 ## 📋 Clipboard (Pré-requisitos)
-- Antes de baixar o projeto você vai precisar ter instalado na sua máquina as seguintes ferramentas:
-    * [Git](https://git-scm.com)
-    * [NodeJS](https://nodejs.org/en/)
-    * [Yarn](https://yarnpkg.com/) ou [NPM](https://www.npmjs.com/)
+
+Antes de baixar o projeto você vai precisar ter instalado na sua máquina as seguintes ferramentas:
+
+* [Git](https://git-scm.com)
+* [NodeJS](https://nodejs.org/en/)
+* [Yarn](https://yarnpkg.com/) ou [NPM](https://www.npmjs.com/)
 
 
 ## ⚙ Settings
-- Segue os comandos para baixar e executar o projeto na sua máquina:
-    * `git clone` + `URL do Projeto`: clonar este repositório.
-    * `cd Ignite-Todo`: acessa a pasta do projeto no terminal.
-    * `yarn`: para baixar as dependências do projeto.
-    * `yarn dev`: 
-        - Executa o projeto em modo/ambiente de desenvolvimento.
-        - Abra [http://localhost:3000](http://localhost:3000) para ver o projeto rodando no Navegador.
-        - A página será recarregada se você fizer edições no código, e se tiver algum erro será mostrado no console.
-    * `yarn build`: 
-        - Compila a aplicação para a produção na pasta `build`.
+
+Segue os comandos para baixar e executar o projeto na sua máquina:
+
+* `git clone` + `URL do Projeto`: clonar este repositório.
+* `cd Ignite-Todo`: acessa a pasta do projeto no terminal.
+* `yarn`: para baixar as dependências do projeto.
+* `yarn dev`: 
+    - Executa o projeto em modo/ambiente de desenvolvimento.
+    - Abra [http://localhost:3000](http://localhost:3000) para ver o projeto rodando no Navegador.
+    - A página será recarregada se você fizer edições no código, e se tiver algum erro será mostrado no console.
+* `yarn build`: 
+    - Compila a aplicação para a produção na pasta `build`.
 
 
 ## 📝 License
+
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## ✍ Author
+
 <img alt="PabloXT14" title="PabloXT14" src="https://avatars.githubusercontent.com/u/71723595?s=400&u=f7a1ec0c2e1f7cd1acf79f61043dbc75b1079de6&v=4" width="100">
 <p>
     Made with 💜 by PabloXT14
